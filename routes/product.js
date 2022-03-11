@@ -38,8 +38,9 @@ router.get('/find/:id',async(req,res)=>{
 })
 
 
-
+//CREATE A PRODUCT
 router.post("/", async (req, res) => {
+  console.log(req.body)
   const newProduct = new Product(req.body);
   try {
     const savedProduct = await newProduct.save();
@@ -49,4 +50,14 @@ router.post("/", async (req, res) => {
   }
 });
 
+
+//DELETE A PRODUCT
+router.delete('/find/:id',async(req,res)=>{
+  try {
+    await Product.findByIdAndDelete(req.params.id)
+res.status(200).json('product deleted.')
+  } catch (err) {
+    console.log(err)
+  }
+})
 module.exports = router
